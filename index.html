@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--Bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <!--Fontawesome-->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <!--Adobe Fonts-->
+    <link rel="stylesheet" href="https://use.typekit.net/wex8sqm.css">
+    <!--My CSS-->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <title>Weather Dashboard</title>
+
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="left-panel">
+            <div class="search-bar">
+                  <form class="d-flex flex-row" id="search-form" method="POST">
+                    <input class="form-control" type="text" placeholder="Search for a city" name="search-city" id="search-text" />
+                    <button class="btn d-flex align-items-center justify-content-center search-button"><i class="fas fa-search"></i></button>
+                  </form>
+            </div>
+          <div class="results-list">
+            <div class="results">
+              Sydney
+            </div>
+            <div class="results">
+              Melbourne
+            </div>
+          </div>
+          <button class="btn clear-button">Clear City List</button>
+        </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="right-panel">
+            <h1><span>Sydney</span><span>(07/01/21)</span></h1>
+            <i class="fas fa-sun fa-10x current-icon"></i>
+
+            <div id="current-stats">
+              <p>Temperature:</p>
+              <p>Humidity:</p>
+              <p>Wind Speed:</p>
+              <p>UV Index:</p>
+            </div>
+
+            <div>
+              <h2>5 day forecast</h2>
+              <div class="container-fluid forecast-wrap">
+                <div class="row">
+                  <div class="col future-forecast-block">
+                    <p class="forecast-date">08/01/21</p>
+                    <i class="fas fa-sun fa-3x forecast-icon"></i>
+                    <p class="forecast-stat">Temp:</p>
+                    <p class="forecast-stat">Humidity:</p>
+                  </div>
+                  <div class="col future-forecast-block"></div>
+                  <div class="col future-forecast-block"></div>
+                  <div class="col future-forecast-block"></div>
+                  <div class="col future-forecast-block"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>Weather Dashboard © 2020 Made with ❤️ by <a href="https://ferwicker.github.io/" target="_blank">Fer Wicker</a></footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/scripts/script.js"></script>
+  </body>
+</html>
