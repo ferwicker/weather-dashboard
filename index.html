@@ -32,26 +32,19 @@
           <div class="left-panel">
             <div class="search-bar">
                   <form class="d-flex flex-row" id="search-form" method="POST">
-                    <input class="form-control" type="text" placeholder="Search for a city" name="search-city" id="search-text" />
-                    <button class="btn d-flex align-items-center justify-content-center search-button"><i class="fas fa-search"></i></button>
+                    <input class="form-control" type="text" placeholder="Search for a city" name="search-city" id="search-city" />
+                    <button type="submit" class="btn d-flex align-items-center justify-content-center search-button"><i class="fas fa-search"></i></button>
                   </form>
             </div>
-          <div class="results-list">
-            <div class="results">
-              Sydney
-            </div>
-            <div class="results">
-              Melbourne
-            </div>
-          </div>
+          <div class="results-list"></div>
           <button class="btn clear-button">Clear City List</button>
         </div>
         </div>
 
         <div class="col-md-8">
           <div class="right-panel">
+            <i class="fas fa-sun current-icon"></i>
             <h1><span>Sydney</span><span>(07/01/21)</span></h1>
-            <i class="fas fa-sun fa-10x current-icon"></i>
 
             <div id="current-stats">
               <p>Temperature:</p>

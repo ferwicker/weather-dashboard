@@ -106,6 +106,7 @@ footer {
 
 #current-stats {
     margin: 40px 0;
+    z-index: 5;
 }
 
 .forecast-wrap {
@@ -137,9 +138,9 @@ footer {
 }
 
 .current-icon {
-    color: rgba(255, 255, 255, 0.30);
+    color: #eec2afc0;
+    font-size: 300px;
     position: absolute;
-    top: 20px;
-    right: 20px;
-    
+    top: 30px;
+    right: 40px;
 }
