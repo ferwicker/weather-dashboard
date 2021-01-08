@@ -61,7 +61,7 @@ searchForm.on('submit', function(){
                 .then(function(response){
                     console.log(response)
 
-                    //UPDATE!
+                    // CURRENT
                     // get current temperature
                     var currentTemp = (response.current.temp - 273.15).toFixed(2);
                     $('#current-temp').text(currentTemp + ' °C');
@@ -79,7 +79,7 @@ searchForm.on('submit', function(){
                         // set colour according to value
                         $('#current-UV').removeClass();
 
-                        if (currentUV > 0 && currentUV < 3) {
+                        if (currentUV => 0 && currentUV < 3) {
                             $('#current-UV').addClass('green'); 
                         } 
                         if (currentUV > 3 && currentUV < 6){
@@ -94,6 +94,31 @@ searchForm.on('submit', function(){
                         if (currentUV > 11){
                             $('#current-UV').addClass('violet');
                         }
+
+                        // FORECAST
+                        for(i = 1; i < 6; i++){
+                            // create and append blocks
+                            var forecastEl = $('<div class="col future-forecast-block">');
+                            $('#forecast-row').append(forecastEl);
+                            // create date paragraph
+                            var dateEl = $('<p class="forecast-date">');
+                            dateEl.text(moment().add(i, 'days').format('DD/MM/YY'));
+                            forecastEl.append(dateEl);
+                            // weather icon - to be updated 
+                            var iconEl = $('<i class="fas fa-sun fa-3x forecast-icon">');
+                            forecastEl.append(iconEl);
+                            // create and append temperature
+                            var tempEl = $('<p class="forecast-stat">');
+                            var tempVal = (response.daily[i].temp.day - 273.15).toFixed(2);
+                            tempEl.text('Temp: ' + tempVal + ' °C');
+                            forecastEl.append(tempEl);
+                            // create and append humidity
+                            var humidityEl = $('<p class="forecast-stat">');
+                            var humidityVal = response.daily[i].humidity;
+                            humidityEl.text('Humidity: ' + humidityVal + '%');
+                            forecastEl.append(humidityEl);
+                        }
+                        
                 })
 
         })
