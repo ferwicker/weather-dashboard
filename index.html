@@ -44,13 +44,13 @@
         <div class="col-md-8">
           <div class="right-panel">
             <i class="fas fa-sun current-icon"></i>
-            <h1><span>Sydney</span><span>(07/01/21)</span></h1>
+            <h1><span id="current-city">Welcome!</span><span id="current-date"></span></h1>
 
             <div id="current-stats">
-              <p>Temperature:</p>
-              <p>Humidity:</p>
-              <p>Wind Speed:</p>
-              <p>UV Index:</p>
+              <p>Temperature: <span id="current-temp"></span></p>
+              <p>Humidity: <span id="current-humidity"></span></p>
+              <p>Wind Speed: <span id="current-wind"></span></p>
+              <p>UV Index: <span id="current-UV"></span></p>
             </div>
 
             <div>
@@ -79,6 +79,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="assets/scripts/script.js"></script>
   </body>
 </html>

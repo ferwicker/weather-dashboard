@@ -104,9 +104,46 @@ footer {
     transition: .2s;
 }
 
+#current-city {
+    text-transform: capitalize;
+}
+
+#current-date {
+    margin-left: 15px;
+}
+
 #current-stats {
     margin: 40px 0;
     z-index: 5;
+}
+
+#current-UV {
+    border-radius: 5px;
+    color: white;
+    margin-left: 5px;
+    padding: 5px 10px;
+}
+
+/* UV Index colours */
+
+.green {
+    background-color: rgb(77, 131, 77);
+}
+
+.yellow {
+    background-color: rgb(238, 220, 62);
+}
+
+.orange {
+    background-color: rgb(241, 176, 55);
+}
+
+.red {
+    background-color: tomato;
+}
+
+.violet {
+    background-color: rgb(134, 62, 134);
 }
 
 .forecast-wrap {
