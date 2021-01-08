@@ -59,8 +59,6 @@ function getWeather(){
                     var currentIconEl = $('#current-icon');
                     currentIconEl.removeClass('fa-sun');
                     var currentIconID = response.current.weather[0].icon;
-                    console.log(currentIconID);
-                    // var currentIconProperty = "'" + currentIconID + "'"
                     var currentIconClass = icons[currentIconID];
                     currentIconEl.addClass(currentIconClass);
                     // get current UV
@@ -99,9 +97,16 @@ function getWeather(){
                             var dateEl = $('<p class="forecast-date">');
                             dateEl.text(moment().add(i, 'days').format('DD/MM/YY'));
                             forecastEl.append(dateEl);
-                            // weather icon - to be updated 
-                            var iconEl = $('<i class="fas fa-sun fa-3x forecast-icon">');
+                            // weather icon  
+                            var iconEl = $('<i class="fas fa-3x forecast-icon">');
                             forecastEl.append(iconEl);
+
+                            // get current icon
+                            var forecastIconID = response.daily[i].weather[0].icon;
+                            console.log(forecastIconID);
+                            var forecastIconClass = icons[forecastIconID];
+                            iconEl.addClass(forecastIconClass);
+
                             // create and append temperature
                             var tempEl = $('<p class="forecast-stat">');
                             var tempVal = (response.daily[i].temp.day - 273.15).toFixed(2);
