@@ -9,25 +9,9 @@ var apiKey = '249cf9c2f4417e3498f1e0b995288085';
 
 var dateToday = moment().format('DD/MM/YY');
 
-// CLEAR LIST BUTTON
+// MAIN FUNCTION
 
-var clearButton = $('.clear-button');
-
-clearButton.on('click', function(){
-    $('.results-list').html('');
-})
-
-//SEARCH FORM
-
-searchForm.on('submit', function(){
-    event.preventDefault();
-    cityVal = cityInput.val();
-    $.trim(cityVal);
-    city = cityVal.toLowerCase();
-
-    if (city === ""){
-        return;//do nothing if empty
-    };
+function getWeather(){
 
     // ajax call
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -96,6 +80,9 @@ searchForm.on('submit', function(){
                         }
 
                         // FORECAST
+                        // empty forecast of previous results
+                        $('#forecast-row').html('');
+                        // render new results
                         for(i = 1; i < 6; i++){
                             // create and append blocks
                             var forecastEl = $('<div class="col future-forecast-block">');
@@ -123,6 +110,30 @@ searchForm.on('submit', function(){
 
         })
 
+}
+
+// CLEAR LIST BUTTON
+
+var clearButton = $('.clear-button');
+
+clearButton.on('click', function(){
+    $('.results-list').html('');
+})
+
+//SEARCH FORM
+
+searchForm.on('submit', function(){
+    event.preventDefault();
+    cityVal = cityInput.val();
+    $.trim(cityVal);
+    city = cityVal.toLowerCase();
+
+    if (city === ""){
+        return;//do nothing if empty
+    };
+
+    getWeather();
+    
     // add button to list
     cityButton = $('<div class="results" data-city=' + '"' + city + '">');
     cityButton.text(city);
@@ -137,35 +148,13 @@ $(document.body).on('click', '.results', function(){
     console.log('clicked');
     city = $(this).attr("data-city");
     console.log(city);
-    // ajax call
-    queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
-    
-    $.ajax({
-    url: queryURL,
-    method: "GET"
-    })
 
-    .then(function(response){
-        var results = response; 
-        console.log(results);
-            // render city and date in h1
-            $('#current-city').text(city);
-            $('#current-date').text('(' + dateToday + ')');
-    })
+    getWeather();
+
 })
 
 
 /* NOTES 
-    when form search is submitted
-    get value
-
-    add button to list with value - done
-
-    do ajax call using value
-
-    Do buttons need to be saved to local storage
-
-    need to get variables for all the values needed?
 
     how to consolidate functions?
 
