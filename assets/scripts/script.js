@@ -55,6 +55,14 @@ function getWeather(){
                     // get current wind
                     var currentWind = response.current.wind_speed;
                     $('#current-wind').text(currentWind + ' mph');
+                    // get current icon
+                    var currentIconEl = $('#current-icon');
+                    currentIconEl.removeClass('fa-sun');
+                    var currentIconID = response.current.weather[0].icon;
+                    console.log(currentIconID);
+                    // var currentIconProperty = "'" + currentIconID + "'"
+                    var currentIconClass = icons[currentIconID];
+                    currentIconEl.addClass(currentIconClass);
                     // get current UV
                     var currentUV = response.current.uvi;
                     //console.log(currentUV);

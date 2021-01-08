@@ -174,7 +174,7 @@ footer {
     color: #A2503C;
 }
 
-.current-icon {
+#current-icon {
     color: #eec2afc0;
     font-size: 300px;
     position: absolute;
