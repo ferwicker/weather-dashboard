@@ -49,6 +49,7 @@ footer {
     border-radius: 8px;
     padding: 20px;
     box-shadow: 5px 5px 7px rgb(0, 0, 0, .15);
+    min-height: 60vh;
 }
 
 #search-form {
@@ -78,12 +79,21 @@ footer {
     color: white;
 }
 
+.fa-trash-alt {
+    opacity: .6;
+}
+
+.fa-trash-alt:hover {
+    opacity: 1;
+    transition: .2s;
+}
+
 .results {
     border-bottom: white 1px solid;
     color: white;
     font-size: 24px;
     font-weight: 300;
-    padding: 20px 0 20px 5px;
+    padding: 15px 15px;
     text-transform: uppercase;
     cursor: pointer;
 }

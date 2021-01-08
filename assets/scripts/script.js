@@ -9,6 +9,29 @@ var apiKey = '249cf9c2f4417e3498f1e0b995288085';
 
 var dateToday = moment().format('DD/MM/YY');
 
+// RETRIEVE & RENDER SAVED CITY LIST
+
+var cityList = [];
+
+function renderCityList(){
+    for(i = 0; i < cityList.length; i++){
+        cityButton = $('<div class="results d-flex justify-content-between align-items-center" data-city=' + '"' + cityList[i] + '">');
+        cityButton.text(cityList[i]);
+        $('.results-list').append(cityButton);
+        var trashButton = $('<i class="far fa-trash-alt fa-xs">');
+        cityButton.append(trashButton);
+    };
+};
+
+cityList = JSON.parse(localStorage.getItem('city list'));
+//if there are to do items saved then append list item for each
+if(cityList){
+    renderCityList();
+} else {
+    console.log('no saved cities')
+    cityList = [];
+};
+
 // MAIN FUNCTION
 
 function getWeather(){
@@ -24,7 +47,7 @@ function getWeather(){
     
         .then(function(response){
             var results = response;
-            console.log(results);
+            //console.log(results);
 
             // render city and date in h1
             $('#current-city').text(city);
@@ -43,7 +66,7 @@ function getWeather(){
                 })
 
                 .then(function(response){
-                    console.log(response)
+                    //console.log(response)
 
                     // CURRENT
                     // get current temperature
@@ -103,7 +126,7 @@ function getWeather(){
 
                             // get current icon
                             var forecastIconID = response.daily[i].weather[0].icon;
-                            console.log(forecastIconID);
+                            //console.log(forecastIconID);
                             var forecastIconClass = icons[forecastIconID];
                             iconEl.addClass(forecastIconClass);
 
@@ -131,6 +154,8 @@ var clearButton = $('.clear-button');
 
 clearButton.on('click', function(){
     $('.results-list').html('');
+    localStorage.removeItem('city list');
+    cityList = [];
 })
 
 //SEARCH FORM
@@ -148,17 +173,24 @@ searchForm.on('submit', function(){
     getWeather();
     
     // add button to list
-    cityButton = $('<div class="results" data-city=' + '"' + city + '">');
+    cityButton = $('<div class="results d-flex justify-content-between align-items-center" data-city=' + '"' + city + '">');
     cityButton.text(city);
     $('.results-list').append(cityButton);
+    var trashButton = $('<i class="far fa-trash-alt fa-xs">');
+    cityButton.append(trashButton);
 
+    //clear input value
     cityInput.val('');
+
+    // save city to local storage
+    cityList.push(city);
+    localStorage.setItem('city list', JSON.stringify(cityList));
 
 });
 
 // button event listener with ajax call
 $(document.body).on('click', '.results', function(){
-    console.log('clicked');
+   
     city = $(this).attr("data-city");
     console.log(city);
 
@@ -166,9 +198,14 @@ $(document.body).on('click', '.results', function(){
 
 })
 
-
-/* NOTES 
-
-    how to consolidate functions?
-
-*/
+// trash button listener
+$(document.body).on('click', '.fa-trash-alt', function(){
+    // event.stopPropagation(); //doesnt work
+    var thisCity = $(this).parent().attr("data-city");
+    cityList = $.grep(cityList, function(value){
+        return value != thisCity;
+    });
+    localStorage.setItem('city list', JSON.stringify(cityList));
+    $('.results-list').html('');
+    renderCityList();
+})
