@@ -183,6 +183,16 @@ searchForm.on('submit', function(){
     };
 
     getWeather();
+
+    //clear input value
+    cityInput.val('');
+
+    //check if city already in array
+    var checkarray = jQuery.inArray(city, cityList);
+
+    if (checkarray > -1) {
+        return; //don't add button or save to array if already exists
+    };
     
     // add button to list
     cityButton = $('<div class="results d-flex justify-content-between align-items-center" data-city=' + '"' + city + '">');
@@ -190,9 +200,6 @@ searchForm.on('submit', function(){
     $('.results-list').append(cityButton);
     var trashButton = $('<i class="far fa-trash-alt fa-xs">');
     cityButton.append(trashButton);
-
-    //clear input value
-    cityInput.val('');
 
     // save city to local storage
     cityList.push(city);
@@ -204,7 +211,6 @@ searchForm.on('submit', function(){
 $(document.body).on('click', '.results', function(){
    
     city = $(this).attr("data-city");
-    console.log(city);
 
     getWeather();
 
