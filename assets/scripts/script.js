@@ -27,14 +27,26 @@ cityList = JSON.parse(localStorage.getItem('city list'));
 //if there are to do items saved then append list item for each
 if(cityList){
     renderCityList();
+    //retrieve last city seen
+    city = localStorage.getItem('last seen');
+    // get weather for last city seen
+    getWeather();
+
 } else {
-    console.log('no saved cities')
     cityList = [];
 };
+
+// SAVE LAST CITY VIEWED
+
+function lastSeen (city){
+    localStorage.setItem('last seen', city);
+}
 
 // MAIN FUNCTION
 
 function getWeather(){
+
+    lastSeen (city);
 
     // ajax call
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
