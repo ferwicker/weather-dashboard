@@ -116,7 +116,7 @@ function getWeather(){
                     $('#current-wind').text(currentWind + ' mph');
                     // get current icon
                     var currentIconEl = $('#current-icon');
-                    currentIconEl.removeClass('fa-sun'); // bug here
+                    currentIconEl.removeClass('fa-sun fa-cloud-sun fa-cloud fa-cloud-rain fa-cloud-sun-rain fa-bolt fa-snowflake fa-smog fa-moon fa-cloud-moon fa-cloud-moon-rain'); // remove all icon classes
                     var currentIconID = response.current.weather[0].icon;
                     var currentIconClass = icons[currentIconID];
                     currentIconEl.addClass(currentIconClass);
