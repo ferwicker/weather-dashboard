@@ -15,10 +15,10 @@ var cityList = [];
 
 function renderCityList(){
     for(i = 0; i < cityList.length; i++){
-        cityButton = $('<div class="results d-flex justify-content-between align-items-center" data-city=' + '"' + cityList[i] + '">');
+        cityButton = $('<div class="row results d-flex justify-content-between align-items-center" data-city=' + '"' + cityList[i] + '">');
         cityButton.text(cityList[i]);
         $('.results-list').append(cityButton);
-        var trashButton = $('<i class="far fa-trash-alt fa-xs">');
+        var trashButton = $('<i class="far fa-trash-alt fa-xs" data-city=' + '"' + cityList[i] + '">');
         cityButton.append(trashButton);
     };
 };
@@ -42,11 +42,31 @@ function lastSeen (city){
     localStorage.setItem('last seen', city);
 }
 
+// ADD BUTTON AND SAVE ARRAY
+
+function addButton (){
+    //check if city already in array
+    var checkarray = jQuery.inArray(city, cityList);
+
+    if (checkarray > -1) {
+        return; //don't add button or save to array if already exists
+    };
+    
+    // add button to list
+    cityButton = $('<div class="row results d-flex justify-content-between align-items-center" data-city=' + '"' + city + '">');
+    cityButton.text(city);
+    $('.results-list').append(cityButton);
+    var trashButton = $('<i class="far fa-trash-alt fa-xs" data-city=' + '"' + city + '">');
+    cityButton.append(trashButton);
+
+    // save city to local storage
+    cityList.push(city);
+    localStorage.setItem('city list', JSON.stringify(cityList));
+};
+
 // MAIN FUNCTION
 
 function getWeather(){
-
-    lastSeen (city);
 
     // ajax call
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -58,6 +78,10 @@ function getWeather(){
         })
     
         .then(function(response){
+
+            lastSeen (city);
+            addButton(city);
+
             var results = response;
             //console.log(results);
 
@@ -92,7 +116,7 @@ function getWeather(){
                     $('#current-wind').text(currentWind + ' mph');
                     // get current icon
                     var currentIconEl = $('#current-icon');
-                    currentIconEl.removeClass('fa-sun');
+                    currentIconEl.removeClass('fa-sun'); // bug here
                     var currentIconID = response.current.weather[0].icon;
                     var currentIconClass = icons[currentIconID];
                     currentIconEl.addClass(currentIconClass);
@@ -126,7 +150,7 @@ function getWeather(){
                         // render new results
                         for(i = 1; i < 6; i++){
                             // create and append blocks
-                            var forecastEl = $('<div class="col future-forecast-block">');
+                            var forecastEl = $('<div class="col-sm future-forecast-block">');
                             $('#forecast-row').append(forecastEl);
                             // create date paragraph
                             var dateEl = $('<p class="forecast-date">');
@@ -156,8 +180,9 @@ function getWeather(){
                         
                 })
 
+                //addButton(city);
         })
-
+    
 }
 
 // CLEAR LIST BUTTON
@@ -187,43 +212,24 @@ searchForm.on('submit', function(){
     //clear input value
     cityInput.val('');
 
-    //check if city already in array
-    var checkarray = jQuery.inArray(city, cityList);
-
-    if (checkarray > -1) {
-        return; //don't add button or save to array if already exists
-    };
-    
-    // add button to list
-    cityButton = $('<div class="results d-flex justify-content-between align-items-center" data-city=' + '"' + city + '">');
-    cityButton.text(city);
-    $('.results-list').append(cityButton);
-    var trashButton = $('<i class="far fa-trash-alt fa-xs">');
-    cityButton.append(trashButton);
-
-    // save city to local storage
-    cityList.push(city);
-    localStorage.setItem('city list', JSON.stringify(cityList));
-
 });
 
-// button event listener with ajax call
+// city button event listeners
 $(document.body).on('click', '.results', function(){
    
     city = $(this).attr("data-city");
 
+    //target trash button
+    var target = $( event.target );
+    if (target.is('i')) {
+        city = $(this).attr("data-city");
+        cityList = $.grep(cityList, function(value){
+            return value !== city;
+        });
+        localStorage.setItem('city list', JSON.stringify(cityList));
+        $('.results-list').html('');
+        renderCityList();
+        return;
+    };
     getWeather();
-
-})
-
-// trash button listener
-$(document.body).on('click', '.fa-trash-alt', function(){
-    // event.stopPropagation(); //doesnt work
-    var thisCity = $(this).parent().attr("data-city");
-    cityList = $.grep(cityList, function(value){
-        return value != thisCity;
-    });
-    localStorage.setItem('city list', JSON.stringify(cityList));
-    $('.results-list').html('');
-    renderCityList();
 })
