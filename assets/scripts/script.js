@@ -20,8 +20,8 @@ function renderCityList(){
         $('.results-list').append(cityButton);
         var trashButton = $('<i class="far fa-trash-alt fa-xs" data-city=' + '"' + cityList[i] + '">');
         cityButton.append(trashButton);
-    };
-};
+    }
+}
 
 cityList = JSON.parse(localStorage.getItem('city list'));
 //if there are to do items saved then append list item for each
@@ -34,7 +34,7 @@ if(cityList){
 
 } else {
     cityList = [];
-};
+}
 
 // SAVE LAST CITY VIEWED
 
@@ -50,7 +50,7 @@ function addButton (){
 
     if (checkarray > -1) {
         return; //don't add button or save to array if already exists
-    };
+    }
     
     // add button to list
     cityButton = $('<div class="row results d-flex justify-content-between align-items-center" data-city=' + '"' + city + '">');
@@ -62,7 +62,7 @@ function addButton (){
     // save city to local storage
     cityList.push(city);
     localStorage.setItem('city list', JSON.stringify(cityList));
-};
+}
 
 // MAIN FUNCTION
 
@@ -128,7 +128,7 @@ function getWeather(){
                         // set colour according to value
                         $('#current-UV').removeClass();
 
-                        if (currentUV => 0 && currentUV < 3) {
+                        if (currentUV >= 0 && currentUV < 3) {
                             $('#current-UV').addClass('green'); 
                         } 
                         if (currentUV > 3 && currentUV < 6){
@@ -178,25 +178,21 @@ function getWeather(){
                             forecastEl.append(humidityEl);
                         }
                         
-                })
-
-                //addButton(city);
-        })
+                });
+        });
     
 }
 
 // CLEAR LIST BUTTON
-
 var clearButton = $('.clear-button');
 
 clearButton.on('click', function(){
     $('.results-list').html('');
     localStorage.removeItem('city list');
     cityList = [];
-})
+});
 
 //SEARCH FORM
-
 searchForm.on('submit', function(){
     event.preventDefault();
     cityVal = cityInput.val();
@@ -205,7 +201,7 @@ searchForm.on('submit', function(){
 
     if (city === ""){
         return;//do nothing if empty
-    };
+    }
 
     getWeather();
 
@@ -230,6 +226,6 @@ $(document.body).on('click', '.results', function(){
         $('.results-list').html('');
         renderCityList();
         return;
-    };
+    }
     getWeather();
-})
+});
